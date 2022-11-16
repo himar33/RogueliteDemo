@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float shootWalkSpeed;
     [SerializeField] private Transform shotPoint;
     [SerializeField] private GameObject bulletPrefab;
 
@@ -35,8 +36,11 @@ public class PlayerController : MonoBehaviour
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        inputMovement.x = Input.GetAxisRaw("Horizontal");
-        inputMovement.y = Input.GetAxisRaw("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        inputMovement = new Vector2(moveX, moveY).normalized;
+
+        float currSpeed = speed;
 
         if (mousePosition.x > handTransform.position.x && sr.flipX == true || mousePosition.x < handTransform.position.x && sr.flipX != true)
         {
@@ -49,11 +53,12 @@ public class PlayerController : MonoBehaviour
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         handTransform.eulerAngles = new Vector3(0, 0, aimAngle);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            Instantiate(bulletPrefab, shotPoint);
+            currSpeed = shootWalkSpeed;
+            Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
         }
 
-        rb.velocity = speed * Time.deltaTime * inputMovement;
+        rb.velocity = currSpeed * inputMovement;
     }
 }
