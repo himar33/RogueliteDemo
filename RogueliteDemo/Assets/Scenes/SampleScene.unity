@@ -282,7 +282,6 @@ MonoBehaviour:
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
@@ -405,38 +404,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1700625229509877547, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1830285366463508061, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.279
-      objectReference: {fileID: 0}
-    - target: {fileID: 2275886078450924668, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2716071143962449900, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.018
-      objectReference: {fileID: 0}
-    - target: {fileID: 2716071143962449900, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.348
-      objectReference: {fileID: 0}
-    - target: {fileID: 4004192438244322888, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4004192438244322888, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_FlipY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4206961509909403979, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4962941162449357662, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
-      propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
