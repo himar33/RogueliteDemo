@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Normal2_Bullet
   m_EditorClassIdentifier: 
   b_sprite: {fileID: 21300000, guid: 233b369e5b2dce240806af6e1ce15f5d, type: 3}
-  b_velocity: 120
+  b_velocity: 200
