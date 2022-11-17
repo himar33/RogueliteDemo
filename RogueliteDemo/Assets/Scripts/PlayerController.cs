@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        CameraShaker.Instance.ShakeOnce(2f, 2f, 0.15f, 1f);
+        CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
         canShoot = false;
         Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
         yield return new WaitForSeconds(fireRate);
