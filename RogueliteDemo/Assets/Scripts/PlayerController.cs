@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform shotPoint;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private ParticleSystem particles;
 
     private bool canShoot = true;
     private Vector2 inputMovement;
@@ -90,8 +91,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Shoot()
     {
         CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
+        particles.Play();
         canShoot = false;
         Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
+
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
