@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
@@ -13,17 +14,23 @@ public class Enemy : MonoBehaviour
         Walk
     }
 
-    [Header("State events")]
-    [SerializeField] private UnityEvent attackEvent;
-    [SerializeField] private UnityEvent deathEvent;
-    [SerializeField] private UnityEvent hurtEvent;
-    [SerializeField] private UnityEvent walkEvent;
+    [Header("References")]
+    [SerializeField] private Transform direction;
 
     private EnemyState currentState;
+    private NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     private void Start()
     {
         currentState = EnemyState.Walk;
+
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
     }
 
     private void Update()
@@ -31,20 +38,22 @@ public class Enemy : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Attack:
-                attackEvent.Invoke();
                 break;
             case EnemyState.Death:
-                deathEvent.Invoke();
                 break;
             case EnemyState.Hurt:
-                hurtEvent.Invoke();
                 break;
             case EnemyState.Walk:
-                walkEvent.Invoke();
+                WalkTo();
                 break;
             default:
                 break;
         }
+    }
+
+    public void WalkTo()
+    {
+        agent.SetDestination(direction.position);
     }
 
     public void SetState(EnemyState _state)

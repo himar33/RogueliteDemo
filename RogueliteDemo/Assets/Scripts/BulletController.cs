@@ -40,4 +40,17 @@ public class BulletController : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        foreach (string item in destroyTags)
+        {
+            if (collision.transform.CompareTag(item))
+            {
+                Instantiate(destroyParticle, transform.position, transform.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
+                Destroy(gameObject);
+                break;
+            }
+        }
+    }
 }
