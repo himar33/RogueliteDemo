@@ -6,10 +6,12 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField] private Bullet b_data;
     [SerializeField, TagSelector] private string[] destroyTags = new string[] { };
+    [SerializeField] private GameObject destroyParticle;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private BoxCollider2D col;
+    
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class BulletController : MonoBehaviour
         {
             if (collision.transform.CompareTag(item))
             {
+                Instantiate(destroyParticle, transform.position, transform.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
                 Destroy(gameObject);
                 break;
             }
