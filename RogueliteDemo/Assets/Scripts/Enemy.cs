@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,15 +20,19 @@ public class Enemy : MonoBehaviour
 
     private EnemyState currentState;
     private NavMeshAgent agent;
+    private BoxCollider2D[] attackCollision;
+    private Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        attackCollision = GetComponents<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        currentState = EnemyState.Walk;
+        SetState(EnemyState.Walk);
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -59,5 +64,28 @@ public class Enemy : MonoBehaviour
     public void SetState(EnemyState _state)
     {
         currentState = _state;
+    }
+
+    public void SetAttackCollision(int state)
+    {
+        attackCollision[1].enabled = Convert.ToBoolean(state);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            SetState(EnemyState.Attack);
+            animator.SetBool("Attack", true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //if (collision.transform.CompareTag("Player"))
+        //{
+        //    SetState(EnemyState.Walk);
+        //    animator.SetBool("Attack", false);
+        //}
     }
 }
