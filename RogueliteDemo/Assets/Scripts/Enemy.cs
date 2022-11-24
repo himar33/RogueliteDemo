@@ -17,17 +17,20 @@ public class Enemy : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform direction;
+    [SerializeField] private Transform playerPos;
 
+    private SpriteRenderer sr;
     private EnemyState currentState;
     private NavMeshAgent agent;
-    private BoxCollider2D[] attackCollision;
+    private BoxCollider2D attackCollision;
     private Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        attackCollision = GetComponents<BoxCollider2D>();
+        attackCollision = transform.GetChild(0).GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -58,6 +61,11 @@ public class Enemy : MonoBehaviour
 
     public void WalkTo()
     {
+        if (playerPos.position.x < transform.position.x)
+            sr.flipX = true;
+        else
+            sr.flipX = false;
+
         agent.SetDestination(direction.position);
     }
 
@@ -68,7 +76,7 @@ public class Enemy : MonoBehaviour
 
     public void SetAttackCollision(int state)
     {
-        attackCollision[1].enabled = Convert.ToBoolean(state);
+        attackCollision.enabled = Convert.ToBoolean(state);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -82,10 +90,10 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //if (collision.transform.CompareTag("Player"))
-        //{
-        //    SetState(EnemyState.Walk);
-        //    animator.SetBool("Attack", false);
-        //}
+        if (collision.transform.CompareTag("Player"))
+        {
+            SetState(EnemyState.Walk);
+            animator.SetBool("Attack", false);
+        }
     }
 }
