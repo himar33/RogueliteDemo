@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform direction;
-    [SerializeField] private Transform playerPos;
 
     private SpriteRenderer sr;
     private EnemyState currentState;
@@ -46,6 +45,7 @@ public class Enemy : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Attack:
+                LookAt(direction.position);
                 break;
             case EnemyState.Death:
                 break;
@@ -61,12 +61,17 @@ public class Enemy : MonoBehaviour
 
     public void WalkTo()
     {
-        if (playerPos.position.x < transform.position.x)
+        LookAt(direction.position);
+
+        agent.SetDestination(direction.position);
+    }
+
+    private void LookAt(Vector3 position)
+    {
+        if (position.x < transform.position.x)
             sr.flipX = true;
         else
             sr.flipX = false;
-
-        agent.SetDestination(direction.position);
     }
 
     public void SetState(EnemyState _state)
@@ -92,6 +97,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
+            if (attackCollision.enabled) attackCollision.enabled = false;
             SetState(EnemyState.Walk);
             animator.SetBool("Attack", false);
         }

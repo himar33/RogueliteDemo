@@ -5,10 +5,18 @@ using EZCameraShake;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        NORMAL,
+        HITTED,
+        DEATH
+    }
+
     [Header("Player Stats")]
     [SerializeField] private float speed;
     [SerializeField] private float shootWalkSpeed;
     [SerializeField] private float fireRate;
+    [SerializeField] private float hitTime;
 
     [Space]
 
@@ -17,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private ParticleSystem particles;
 
+    private PlayerState currentState;
     private bool canShoot = true;
     private Vector2 inputMovement;
     private Rigidbody2D rb;
@@ -30,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        currentState = PlayerState.NORMAL;
         handTransform = transform.GetChild(0);
         gunTransform = handTransform.GetChild(0);
 
@@ -42,6 +52,23 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
+    {
+        switch (currentState)
+        {
+            case PlayerState.NORMAL:
+                NormalUpdate();
+                break;
+            case PlayerState.HITTED:
+                StartCoroutine(Hitted());
+                break;
+            case PlayerState.DEATH:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void NormalUpdate()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -97,5 +124,22 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
+    }
+
+    public IEnumerator Hitted()
+    {
+        CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
+        rb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(hitTime);
+        currentState = PlayerState.NORMAL;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Hit"))
+        {
+            currentState = PlayerState.HITTED;
+            Debug.Log("hitted");
+        }
     }
 }

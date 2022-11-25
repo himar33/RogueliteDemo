@@ -4152,10 +4152,6 @@ PrefabInstance:
       propertyPath: direction
       value: 
       objectReference: {fileID: 556596377}
-    - target: {fileID: 1019089090706973223, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
-      propertyPath: playerPos
-      value: 
-      objectReference: {fileID: 556596377}
     - target: {fileID: 1019089090706973228, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
       propertyPath: m_Name
       value: Enemy 1
