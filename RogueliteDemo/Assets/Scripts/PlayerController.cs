@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shootWalkSpeed;
     [SerializeField] private float fireRate;
     [SerializeField] private float hitTime;
+    [SerializeField] private float hitDistance;
 
     [Space]
 
@@ -128,9 +129,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Hitted()
     {
+        anim.SetBool("hurt", true);
         CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
-        rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(hitTime);
+        anim.SetBool("hurt", false);
         currentState = PlayerState.NORMAL;
     }
 
@@ -138,6 +140,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.transform.CompareTag("Hit"))
         {
+            Vector2 hitDir = new();
+            rb.velocity = Vector2.zero;
+
+            if (collision.transform.position.x > transform.position.x) hitDir.x = -hitDistance;
+            else hitDir.x = hitDistance;
+
+            rb.AddForce(hitDir);
             currentState = PlayerState.HITTED;
             Debug.Log("hitted");
         }

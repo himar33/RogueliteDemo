@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform direction;
+    [SerializeField] private AnimationClip hurtClip;
 
     private SpriteRenderer sr;
     private EnemyState currentState;
@@ -50,6 +51,7 @@ public class Enemy : MonoBehaviour
             case EnemyState.Death:
                 break;
             case EnemyState.Hurt:
+                StartCoroutine(Hurt());
                 break;
             case EnemyState.Walk:
                 WalkTo();
@@ -64,6 +66,14 @@ public class Enemy : MonoBehaviour
         LookAt(direction.position);
 
         agent.SetDestination(direction.position);
+    }
+
+    public IEnumerator Hurt()
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(hurtClip.length);
+        agent.isStopped = false;
+        SetState(EnemyState.Walk);
     }
 
     private void LookAt(Vector3 position)
@@ -90,6 +100,11 @@ public class Enemy : MonoBehaviour
         {
             SetState(EnemyState.Attack);
             animator.SetBool("Attack", true);
+        }
+        if (collision.transform.CompareTag("Bullet"))
+        {
+            animator.SetTrigger("Hurt");
+            SetState(EnemyState.Hurt);
         }
     }
 
