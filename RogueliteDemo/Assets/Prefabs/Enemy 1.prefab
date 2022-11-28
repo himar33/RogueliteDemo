@@ -169,7 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27eb844cea4b5044e8f016c9592129be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeHits: 10
   direction: {fileID: 0}
+  hurtClip: {fileID: 7400000, guid: f8890f1ce1e14ee488fbaed12a786887, type: 2}
+  deathClip: {fileID: 7400000, guid: 522f4fd1a5564ac46a9959bd51e03965, type: 2}
 --- !u!1 &4182808075392433151
 GameObject:
   m_ObjectHideFlags: 0

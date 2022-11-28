@@ -172,6 +172,7 @@ MonoBehaviour:
   shootWalkSpeed: 2
   fireRate: 0.2
   hitTime: 0.25
+  hitDistance: 120
   shotPoint: {fileID: 1830285366463508061}
   bulletPrefab: {fileID: 4701819854298622435, guid: 539683269805fb64ea2b4e4b5b59763f, type: 3}
   particles: {fileID: 1843103802}

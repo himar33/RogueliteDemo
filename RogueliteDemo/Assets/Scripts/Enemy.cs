@@ -23,18 +23,24 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform direction;
     [SerializeField] private AnimationClip hurtClip;
+    [SerializeField] private AnimationClip deathClip;
 
     private int currentLife;
     private SpriteRenderer sr;
     private EnemyState currentState;
     private NavMeshAgent agent;
     private BoxCollider2D attackCollision;
+    private BoxCollider2D enemyCollision;
     private Animator animator;
+
+    private bool die = false;
+    private bool hurted = false;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         attackCollision = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        enemyCollision = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -56,9 +62,10 @@ public class Enemy : MonoBehaviour
                 LookAt(direction.position);
                 break;
             case EnemyState.Death:
+                if (!die) StartCoroutine(Death());
                 break;
             case EnemyState.Hurt:
-                StartCoroutine(Hurt());
+                if (!hurted) StartCoroutine(Hurt());
                 break;
             case EnemyState.Walk:
                 WalkTo();
@@ -77,13 +84,28 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator Hurt()
     {
+        hurted = true;
         agent.isStopped = true;
 
         yield return new WaitForSeconds(hurtClip.length);
 
+        hurted = false;
         agent.isStopped = false;
         if (currentLife <= 0) SetState(EnemyState.Death);
         else SetState(EnemyState.Walk);
+    }
+
+    public IEnumerator Death()
+    {
+        die = true;
+        animator.SetTrigger("Death");
+
+        enemyCollision.enabled = false;
+        agent.enabled = false;
+
+        yield return new WaitForSeconds(deathClip.length);
+
+        Destroy(gameObject);
     }
 
     private void LookAt(Vector3 position)
