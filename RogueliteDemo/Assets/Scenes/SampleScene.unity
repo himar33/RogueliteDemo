@@ -4161,6 +4161,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7400000, guid: f8890f1ce1e14ee488fbaed12a786887, type: 2}
     - target: {fileID: 1019089090706973223, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
+      propertyPath: lifeHits
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019089090706973223, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
       propertyPath: direction
       value: 
       objectReference: {fileID: 556596377}

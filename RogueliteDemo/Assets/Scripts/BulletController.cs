@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    [SerializeField] private Bullet b_data;
+    public Bullet b_data;
     [SerializeField, TagSelector] private string[] destroyTags = new string[] { };
     [SerializeField] private GameObject destroyParticle;
 
@@ -26,6 +26,11 @@ public class BulletController : MonoBehaviour
     {
         rb.AddForce(transform.right * b_data.b_velocity);
         col.size = sr.size;
+    }
+
+    public int MakeDamage(int charLife)
+    {
+        return charLife -= b_data.b_hitDmg;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

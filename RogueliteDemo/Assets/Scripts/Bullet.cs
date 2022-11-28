@@ -6,4 +6,5 @@ public class Bullet : ScriptableObject
 {
     public Sprite b_sprite;
     public int b_velocity;
+    public int b_hitDmg;
 }

@@ -15,10 +15,16 @@ public class Enemy : MonoBehaviour
         Walk
     }
 
+    [Header("Stats")]
+    [SerializeField] private int lifeHits;
+
+    [Space]
+
     [Header("References")]
     [SerializeField] private Transform direction;
     [SerializeField] private AnimationClip hurtClip;
 
+    private int currentLife;
     private SpriteRenderer sr;
     private EnemyState currentState;
     private NavMeshAgent agent;
@@ -37,6 +43,7 @@ public class Enemy : MonoBehaviour
     {
         SetState(EnemyState.Walk);
 
+        currentLife = lifeHits;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
@@ -71,9 +78,12 @@ public class Enemy : MonoBehaviour
     public IEnumerator Hurt()
     {
         agent.isStopped = true;
+
         yield return new WaitForSeconds(hurtClip.length);
+
         agent.isStopped = false;
-        SetState(EnemyState.Walk);
+        if (currentLife <= 0) SetState(EnemyState.Death);
+        else SetState(EnemyState.Walk);
     }
 
     private void LookAt(Vector3 position)
@@ -103,6 +113,7 @@ public class Enemy : MonoBehaviour
         }
         if (collision.transform.CompareTag("Bullet"))
         {
+            currentLife = collision.GetComponent<BulletController>().MakeDamage(currentLife);
             animator.SetTrigger("Hurt");
             SetState(EnemyState.Hurt);
         }
