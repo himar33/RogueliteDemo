@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -16,138 +13,74 @@ public class Enemy : MonoBehaviour
     }
 
     [Header("Stats")]
-    [SerializeField] private int lifeHits;
+    [SerializeField] protected int lifeHits;
 
     [Space]
 
-    [Header("References")]
-    [SerializeField] private Transform direction;
-    [SerializeField] private AnimationClip hurtClip;
-    [SerializeField] private AnimationClip deathClip;
+    [Header("States Events")]
+    [SerializeField] protected UnityEvent attackEvent;
+    [SerializeField] protected UnityEvent deathEvent;
+    [SerializeField] protected UnityEvent hurtEvent;
+    [SerializeField] protected UnityEvent walkEvent;
 
-    private int currentLife;
-    private SpriteRenderer sr;
-    private EnemyState currentState;
-    private NavMeshAgent agent;
-    private BoxCollider2D attackCollision;
-    private BoxCollider2D enemyCollision;
-    private Animator animator;
+    protected EnemyState currentState;
+    protected int currentLife;
 
-    private bool die = false;
-    private bool hurted = false;
+    protected bool death = false;
+    protected bool hurted = false;
 
-    private void Awake()
+    protected SpriteRenderer sprite;
+    protected NavMeshAgent agent;
+    protected BoxCollider2D coll;
+    protected Animator animator;
+
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        attackCollision = transform.GetChild(0).GetComponent<BoxCollider2D>();
-        enemyCollision = GetComponent<BoxCollider2D>();
+        coll = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        sr = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         SetState(EnemyState.Walk);
-
         currentLife = lifeHits;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         switch (currentState)
         {
             case EnemyState.Attack:
-                LookAt(direction.position);
+                attackEvent.Invoke();
                 break;
             case EnemyState.Death:
-                if (!die) StartCoroutine(Death());
+                if (!death) deathEvent.Invoke();
                 break;
             case EnemyState.Hurt:
-                if (!hurted) StartCoroutine(Hurt());
+                if (!hurted) hurtEvent.Invoke();
                 break;
             case EnemyState.Walk:
-                WalkTo();
+                walkEvent.Invoke();
                 break;
             default:
                 break;
         }
     }
 
-    public void WalkTo()
-    {
-        LookAt(direction.position);
-
-        agent.SetDestination(direction.position);
-    }
-
-    public IEnumerator Hurt()
-    {
-        hurted = true;
-        agent.isStopped = true;
-
-        yield return new WaitForSeconds(hurtClip.length);
-
-        hurted = false;
-        agent.isStopped = false;
-        if (currentLife <= 0) SetState(EnemyState.Death);
-        else SetState(EnemyState.Walk);
-    }
-
-    public IEnumerator Death()
-    {
-        die = true;
-        animator.SetTrigger("Death");
-
-        enemyCollision.enabled = false;
-        agent.enabled = false;
-
-        yield return new WaitForSeconds(deathClip.length);
-
-        Destroy(gameObject);
-    }
-
-    private void LookAt(Vector3 position)
-    {
-        if (position.x < transform.position.x)
-            sr.flipX = true;
-        else
-            sr.flipX = false;
-    }
-
-    public void SetState(EnemyState _state)
+    protected void SetState(EnemyState _state)
     {
         currentState = _state;
     }
 
-    public void SetAttackCollision(int state)
+    protected virtual void OnDisable()
     {
-        attackCollision.enabled = Convert.ToBoolean(state);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            SetState(EnemyState.Attack);
-            animator.SetBool("Attack", true);
-        }
-        if (collision.transform.CompareTag("Bullet"))
-        {
-            currentLife = collision.GetComponent<BulletController>().MakeDamage(currentLife);
-            animator.SetTrigger("Hurt");
-            SetState(EnemyState.Hurt);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            if (attackCollision.enabled) attackCollision.enabled = false;
-            SetState(EnemyState.Walk);
-            animator.SetBool("Attack", false);
-        }
+        attackEvent.RemoveAllListeners();
+        deathEvent.RemoveAllListeners();
+        hurtEvent.RemoveAllListeners();
+        walkEvent.RemoveAllListeners();
     }
 }
