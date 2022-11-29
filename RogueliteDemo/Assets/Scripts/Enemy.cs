@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Stats")]
     [SerializeField] protected int lifeHits;
+    [SerializeField] public Vector2 hitDirection;
 
     [Space]
 
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     protected bool death = false;
     protected bool hurted = false;
+    protected bool attacked = false;
 
     protected SpriteRenderer sprite;
     protected NavMeshAgent agent;
@@ -55,7 +57,7 @@ public class Enemy : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Attack:
-                attackEvent.Invoke();
+                if (!attacked) attackEvent.Invoke();
                 break;
             case EnemyState.Death:
                 if (!death) deathEvent.Invoke();

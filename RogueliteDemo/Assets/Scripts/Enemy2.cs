@@ -36,6 +36,11 @@ public class Enemy2 : Enemy
     public void WalkTo()
     {
         agent.SetDestination(direction.position + heightPos);
+
+        if (agent.remainingDistance < 1)
+        {
+            //SetState(EnemyState.Death);
+        }
     }
 
     public void AttackCall()
@@ -45,7 +50,16 @@ public class Enemy2 : Enemy
 
     public IEnumerator Attack()
     {
+        attacked = true;
+        animator.SetBool("Attack", true);
+        attackCollision.enabled = true;
+
         yield return new WaitForSeconds(attackTime);
+
+        attackCollision.enabled = false;
+        SetState(EnemyState.Walk);
+        animator.SetBool("Attack", false);
+        attacked = false;
     }
 
     public void HurtCall()
@@ -86,26 +100,11 @@ public class Enemy2 : Enemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player"))
-        {
-            SetState(EnemyState.Attack);
-            animator.SetBool("Attack", true);
-        }
         if (collision.transform.CompareTag("Bullet"))
         {
             currentLife = collision.GetComponent<BulletController>().MakeDamage(currentLife);
             animator.SetTrigger("Hurt");
             SetState(EnemyState.Hurt);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-        {
-            if (attackCollision.enabled) attackCollision.enabled = false;
-            SetState(EnemyState.Walk);
-            animator.SetBool("Attack", false);
         }
     }
 }

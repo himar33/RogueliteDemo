@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shootWalkSpeed;
     [SerializeField] private float fireRate;
     [SerializeField] private float hitTime;
-    [SerializeField] private float hitDistance;
 
     [Space]
 
@@ -140,11 +139,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.transform.CompareTag("Hit"))
         {
-            Vector2 hitDir = new();
+            Vector2 hitDir = collision.GetComponentInParent<Enemy>().hitDirection;
             rb.velocity = Vector2.zero;
 
-            if (collision.transform.position.x > transform.position.x) hitDir.x = -hitDistance;
-            else hitDir.x = hitDistance;
+            if (collision.transform.position.x > transform.position.x) hitDir.x *= -1;
 
             rb.AddForce(hitDir);
             currentState = PlayerState.HITTED;
