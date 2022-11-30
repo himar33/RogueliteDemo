@@ -9,13 +9,13 @@ public class Enemy1 : Enemy
     [SerializeField] private AnimationClip hurtClip;
     [SerializeField] private AnimationClip deathClip;
 
-    private BoxCollider2D attackCollision;
+    private BoxCollider2D attackCollider;
     private Transform direction;
 
     protected override void Awake()
     {
         base.Awake();
-        attackCollision = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        attackCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
     protected override void Start()
@@ -82,7 +82,7 @@ public class Enemy1 : Enemy
 
     public void SetAttackCollision(int state)
     {
-        attackCollision.enabled = Convert.ToBoolean(state);
+        attackCollider.enabled = Convert.ToBoolean(state);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -104,7 +104,7 @@ public class Enemy1 : Enemy
     {
         if (collision.transform.CompareTag("Player"))
         {
-            if (attackCollision.enabled) attackCollision.enabled = false;
+            if (attackCollider.enabled) attackCollider.enabled = false;
             SetState(EnemyState.Walk);
             animator.SetBool("Attack", false);
         }

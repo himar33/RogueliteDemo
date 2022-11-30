@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 132840569}
   - component: {fileID: 132840570}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7183530984354753767}
   - component: {fileID: 1873244169118611283}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AttackCollider
   m_TagString: Hit
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 2542670069650250252}
   - component: {fileID: 2542670069650250253}
   - component: {fileID: 1578179091025566859}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Enemy 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -374,7 +374,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  heightPos: {x: 0, y: 0, z: 0}
+  heightPos: {x: 0, y: 0.8, z: 0}
   attackTime: 1
+  detectDistance: 0.5
+  detectLayer:
+    serializedVersion: 2
+    m_Bits: 1
   hurtClip: {fileID: 7400000, guid: 87018239340b85d4abda4a8bb1fc8b87, type: 2}
   deathClip: {fileID: 7400000, guid: a511d7c6cc2379d4cac54727903eb198, type: 2}

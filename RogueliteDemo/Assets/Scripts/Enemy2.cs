@@ -6,6 +6,8 @@ public class Enemy2 : Enemy
 {
     [SerializeField] private Vector3 heightPos;
     [SerializeField] float attackTime;
+    [SerializeField] float detectDistance;
+    [SerializeField] LayerMask detectLayer;
 
     [Space]
 
@@ -13,13 +15,13 @@ public class Enemy2 : Enemy
     [SerializeField] private AnimationClip hurtClip;
     [SerializeField] private AnimationClip deathClip;
 
-    private BoxCollider2D attackCollision;
+    private BoxCollider2D attackCollider;
     private Transform direction;
 
     protected override void Awake()
     {
         base.Awake();
-        attackCollision = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        attackCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
     }
 
     protected override void Start()
@@ -37,9 +39,11 @@ public class Enemy2 : Enemy
     {
         agent.SetDestination(direction.position + heightPos);
 
-        if (agent.remainingDistance < 1)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, detectDistance, detectLayer);
+
+        if (hit.collider && hit.transform.CompareTag("Player"))
         {
-            //SetState(EnemyState.Death);
+            SetState(EnemyState.Attack);
         }
     }
 
@@ -52,11 +56,11 @@ public class Enemy2 : Enemy
     {
         attacked = true;
         animator.SetBool("Attack", true);
-        attackCollision.enabled = true;
+        attackCollider.enabled = true;
 
         yield return new WaitForSeconds(attackTime);
 
-        attackCollision.enabled = false;
+        attackCollider.enabled = false;
         SetState(EnemyState.Walk);
         animator.SetBool("Attack", false);
         attacked = false;
@@ -106,5 +110,12 @@ public class Enemy2 : Enemy
             animator.SetTrigger("Hurt");
             SetState(EnemyState.Hurt);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(transform.position, transform.position - new Vector3(0, detectDistance, 0));
     }
 }
