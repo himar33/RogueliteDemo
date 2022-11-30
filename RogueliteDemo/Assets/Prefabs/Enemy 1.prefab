@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9008220607193267035}
   - component: {fileID: 983279372}
   - component: {fileID: -8189117852139548930}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Enemy 1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2234731, y: 0.97316015}
+  m_Size: {x: 0.6055913, y: 0.97316015}
   m_EdgeRadius: 0
 --- !u!114 &-8189117852139548930
 MonoBehaviour:
@@ -231,6 +231,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  detectLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  detectDistance: 0.6
   hurtClip: {fileID: 7400000, guid: f8890f1ce1e14ee488fbaed12a786887, type: 2}
   deathClip: {fileID: 7400000, guid: 522f4fd1a5564ac46a9959bd51e03965, type: 2}
   attackClip: {fileID: 7400000, guid: 6487cb14449e0494fa9168f05f78a411, type: 2}
@@ -244,7 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9069761414596115036}
   - component: {fileID: 3085308605111781426}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AttackCollision
   m_TagString: Hit
   m_Icon: {fileID: 0}

@@ -15,6 +15,7 @@ public class Enemy1 : Enemy
 
     private BoxCollider2D attackCollider;
     private Transform direction;
+    private int dirMult = 1;
 
     protected override void Awake()
     {
@@ -39,7 +40,10 @@ public class Enemy1 : Enemy
 
         agent.SetDestination(direction.position);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, detectDistance, detectLayer);
+        if (sprite.flipX) dirMult = -1;
+        else dirMult = 1;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * dirMult, detectDistance, detectLayer);
 
         if (hit.collider && hit.transform.CompareTag("Player"))
         {
@@ -55,11 +59,15 @@ public class Enemy1 : Enemy
     public IEnumerator Attack()
     {
         LookAt();
+        agent.isStopped = true;
         animator.SetBool("Attack", true);
         attacked = true;
 
         yield return new WaitForSeconds(attackClip.length);
 
+        agent.isStopped = false;
+        attackCollider.enabled = false;
+        SetState(EnemyState.Walk);
         animator.SetBool("Attack", false);
         attacked = false;
     }
@@ -127,6 +135,6 @@ public class Enemy1 : Enemy
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(transform.position, transform.position - new Vector3(0, detectDistance, 0));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(detectDistance * dirMult, 0, 0));
     }
 }
