@@ -130,7 +130,9 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool("hurt", true);
         CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
+
         yield return new WaitForSeconds(hitTime);
+
         anim.SetBool("hurt", false);
         currentState = PlayerState.NORMAL;
     }

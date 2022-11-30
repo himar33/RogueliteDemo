@@ -54,6 +54,7 @@ public class Enemy2 : Enemy
 
     public IEnumerator Attack()
     {
+        agent.isStopped = true;
         attacked = true;
         animator.SetBool("Attack", true);
         attackCollider.enabled = true;
@@ -64,6 +65,7 @@ public class Enemy2 : Enemy
         SetState(EnemyState.Walk);
         animator.SetBool("Attack", false);
         attacked = false;
+        agent.isStopped = false;
     }
 
     public void HurtCall()
