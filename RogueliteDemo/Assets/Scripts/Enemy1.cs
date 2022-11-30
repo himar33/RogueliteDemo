@@ -5,9 +5,13 @@ using UnityEngine.AI;
 
 public class Enemy1 : Enemy
 {
+    [SerializeField] private LayerMask detectLayer;
+    [SerializeField] private float detectDistance;
+
     [Header("References")]
     [SerializeField] private AnimationClip hurtClip;
     [SerializeField] private AnimationClip deathClip;
+    [SerializeField] private AnimationClip attackClip;
 
     private BoxCollider2D attackCollider;
     private Transform direction;
@@ -34,6 +38,30 @@ public class Enemy1 : Enemy
         LookAt();
 
         agent.SetDestination(direction.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, detectDistance, detectLayer);
+
+        if (hit.collider && hit.transform.CompareTag("Player"))
+        {
+            SetState(EnemyState.Attack);
+        }
+    }
+
+    public void AttackCall()
+    {
+        StartCoroutine(Attack());
+    }
+
+    public IEnumerator Attack()
+    {
+        LookAt();
+        animator.SetBool("Attack", true);
+        attacked = true;
+
+        yield return new WaitForSeconds(attackClip.length);
+
+        animator.SetBool("Attack", false);
+        attacked = false;
     }
 
     public void HurtCall()
@@ -87,11 +115,6 @@ public class Enemy1 : Enemy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player"))
-        {
-            SetState(EnemyState.Attack);
-            animator.SetBool("Attack", true);
-        }
         if (collision.transform.CompareTag("Bullet"))
         {
             currentLife = collision.GetComponent<BulletController>().MakeDamage(currentLife);
@@ -100,13 +123,10 @@ public class Enemy1 : Enemy
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        if (collision.transform.CompareTag("Player"))
-        {
-            if (attackCollider.enabled) attackCollider.enabled = false;
-            SetState(EnemyState.Walk);
-            animator.SetBool("Attack", false);
-        }
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(transform.position, transform.position - new Vector3(0, detectDistance, 0));
     }
 }

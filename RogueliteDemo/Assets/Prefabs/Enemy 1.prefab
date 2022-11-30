@@ -176,7 +176,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -8189117852139548930}
         m_TargetAssemblyTypeName: Enemy1, Assembly-CSharp
-        m_MethodName: LookAt
+        m_MethodName: AttackCall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -233,6 +233,7 @@ MonoBehaviour:
         m_CallState: 2
   hurtClip: {fileID: 7400000, guid: f8890f1ce1e14ee488fbaed12a786887, type: 2}
   deathClip: {fileID: 7400000, guid: 522f4fd1a5564ac46a9959bd51e03965, type: 2}
+  attackClip: {fileID: 7400000, guid: 6487cb14449e0494fa9168f05f78a411, type: 2}
 --- !u!1 &4182808075392433151
 GameObject:
   m_ObjectHideFlags: 0
