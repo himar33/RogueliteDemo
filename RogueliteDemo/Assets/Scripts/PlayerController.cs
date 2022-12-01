@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private ParticleSystem particles;
 
+    private LifeBarController lifeBar;
     private PlayerState currentState;
     private bool canShoot = true;
     private Vector2 inputMovement;
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        lifeBar = FindObjectOfType<LifeBarController>();
 
         handSR = handTransform.GetComponent<SpriteRenderer>();
         gunSR = gunTransform.GetComponent<SpriteRenderer>();
@@ -143,6 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 hitDir = collision.GetComponentInParent<Enemy>().hitDirection;
             rb.velocity = Vector2.zero;
+            lifeBar.TakeOff();
 
             if (collision.transform.position.x > transform.position.x) hitDir.x *= -1;
 
