@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,14 @@ public class HeartController : MonoBehaviour
 
     private void Update()
     {
-        //currentState = (HeartState)animator.GetCurrentAnimatorStateInfo(0);
+        for (int i = 0; i < Enum.GetValues(typeof(HeartState)).Length; i++)
+        {
+            if (animator.GetCurrentAnimatorStateInfo(0).IsTag(i.ToString()))
+            {
+                currentState = (HeartState)i;
+                break;
+            }
+        }
     }
 
     public void AddLife()

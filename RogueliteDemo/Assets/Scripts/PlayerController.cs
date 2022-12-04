@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sr;
     private SpriteRenderer handSR;
     private SpriteRenderer gunSR;
+    private AudioSource audioSource;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         lifeBar = FindObjectOfType<LifeBarController>();
 
         handSR = handTransform.GetComponent<SpriteRenderer>();
@@ -119,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Shoot()
     {
+        audioSource.PlayOneShot(bulletPrefab.GetComponent<BulletController>().b_data.b_sfx);
         CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
         particles.Play();
         canShoot = false;

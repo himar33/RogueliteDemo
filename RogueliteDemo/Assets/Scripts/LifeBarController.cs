@@ -37,16 +37,15 @@ public class LifeBarController : MonoBehaviour
             currentLife--;
             for (int i = 0; i < hearts.Count; i++)
             {
-                Debug.Log("aquiiiiiiiiiii");
                 if (i == hearts.Count - 1 && hearts[i].currentState == HeartController.HeartState.FULL)
                 {
-                    Debug.Log("xd");
                     hearts[i].TakeOffLife();
+                    break;
                 }
                 else if (hearts[i + 1].currentState == HeartController.HeartState.EMPTY && hearts[i].currentState == HeartController.HeartState.FULL)
                 {
-                    Debug.Log("AAAAAAAAAAA");
                     hearts[i].TakeOffLife();
+                    break;
                 }
             }
         }
