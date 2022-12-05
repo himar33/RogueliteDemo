@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
 
             if (collision.transform.position.x > transform.position.x) hitDir.x *= -1;
 
+            audioSource.PlayOneShot(collision.GetComponentInParent<Enemy>().playerHitClip);
             rb.AddForce(hitDir);
             currentState = PlayerState.HITTED;
             Debug.Log("hitted");

@@ -14,6 +14,7 @@ public class Enemy1 : Enemy
     [SerializeField] private AnimationClip attackClip;
 
     private BoxCollider2D attackCollider;
+    private AudioSource audioSource;
     private Transform direction;
     private int dirMult = 1;
 
@@ -21,6 +22,7 @@ public class Enemy1 : Enemy
     {
         base.Awake();
         attackCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Start()
@@ -62,6 +64,7 @@ public class Enemy1 : Enemy
         agent.isStopped = true;
         animator.SetBool("Attack", true);
         attacked = true;
+        audioSource.PlayOneShot(hitClip);
 
         yield return new WaitForSeconds(attackClip.length);
 

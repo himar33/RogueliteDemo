@@ -14,8 +14,8 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: DefaultCompany
   productName: RogueliteDemo
-  defaultCursor: {fileID: 0}
-  cursorHotspot: {x: 0, y: 0}
+  defaultCursor: {fileID: 2800000, guid: 9302877e9df9b7c4da0665c4e8862276, type: 3}
+  cursorHotspot: {x: 19, y: 17}
   m_SplashScreenBackgroundColor: {r: 1, g: 0.92971176, b: 0.8349056, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1

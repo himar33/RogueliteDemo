@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     [Header("Stats")]
     [SerializeField] protected int lifeHits;
     [SerializeField] public Vector2 hitDirection;
+    [SerializeField] public AudioClip playerHitClip;
+    [SerializeField] public AudioClip hitClip;
 
     [Space]
 

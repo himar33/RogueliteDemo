@@ -3171,6 +3171,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8189117852139548930, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
+      propertyPath: hitClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cc7e447e1a78ff342abd403f87f9eac9, type: 3}
     - target: {fileID: 1019089090706973217, guid: c875f06e439525b40827ea67c6c36ff1, type: 3}
       propertyPath: m_RootOrder
       value: 1
