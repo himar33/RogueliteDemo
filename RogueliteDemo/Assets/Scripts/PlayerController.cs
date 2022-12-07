@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EZCameraShake;
+using MyBox;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class PlayerController : MonoBehaviour
     }
 
     [Header("Player Stats")]
-    [SerializeField] private float speed;
+    [SerializeField] private float baseSpeed;
+    [SerializeField] private float baseFireRate;
     [SerializeField] private float shootWalkSpeed;
-    [SerializeField] private float fireRate;
     [SerializeField] private float hitTime;
 
     [Space]
@@ -24,6 +25,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform shotPoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private ParticleSystem particles;
+
+    [ReadOnly] public float multAttack = 1f;
+    [ReadOnly] public float multFireRate = 1f;
+    [ReadOnly] public float multSpeed = 1f;
 
     private LifeBarController lifeBar;
     private PlayerState currentState;
@@ -78,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
-        float currSpeed = speed;
+        float currSpeed = baseSpeed;
         inputMovement = new Vector2(moveX, moveY).normalized;
 
         Vector2 aimDirection = mousePosition - (Vector2)handTransform.position;
@@ -125,9 +130,10 @@ public class PlayerController : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(0.25f, 4f, 0.15f, 1f);
         particles.Play();
         canShoot = false;
-        Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
+        GameObject bullet = Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
+        bullet.GetComponent<BulletController>().SetMultAttack(multAttack);
 
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(baseFireRate);
         canShoot = true;
     }
 

@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     }
 
     [Header("Stats")]
-    [SerializeField] protected int lifeHits;
+    [SerializeField] protected float life;
     [SerializeField] public Vector2 hitDirection;
     [SerializeField] public AudioClip playerHitClip;
     [SerializeField] public AudioClip hitClip;
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected UnityEvent walkEvent;
 
     protected EnemyState currentState;
-    protected int currentLife;
+    protected float currentLife;
 
     protected bool death = false;
     protected bool hurted = false;
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         SetState(EnemyState.Walk);
-        currentLife = lifeHits;
+        currentLife = life;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }

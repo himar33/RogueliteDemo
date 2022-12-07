@@ -266,9 +266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90c23b6e4d84b146a27b26f1f832e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeHits: 10
+  life: 10
   hitDirection: {x: 100, y: 0}
   playerHitClip: {fileID: 8300000, guid: 0ae4a38e381827d4fbc83bebe6e6a5a8, type: 3}
+  hitClip: {fileID: 0}
   attackEvent:
     m_PersistentCalls:
       m_Calls:

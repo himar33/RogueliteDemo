@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour
     [SerializeField, TagSelector] private string[] destroyTags = new string[] { };
     [SerializeField] private GameObject destroyParticle;
 
+    private float b_multAttack;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private BoxCollider2D col;
@@ -28,10 +29,13 @@ public class BulletController : MonoBehaviour
         col.size = sr.size;
     }
 
-    public int MakeDamage(int charLife)
+    public float MakeDamage(float charLife)
     {
-        return charLife -= b_data.b_hitDmg;
+        //TODO: Change MakeDamage function to PlayerController
+        return charLife -= b_data.b_hitDmg * b_multAttack;
     }
+
+    public void SetMultAttack(float mult) { b_multAttack = mult; }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
