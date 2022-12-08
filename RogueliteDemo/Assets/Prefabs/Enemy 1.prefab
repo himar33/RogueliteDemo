@@ -269,7 +269,7 @@ MonoBehaviour:
   life: 10
   hitDirection: {x: 100, y: 0}
   playerHitClip: {fileID: 8300000, guid: 0ae4a38e381827d4fbc83bebe6e6a5a8, type: 3}
-  hitClip: {fileID: 0}
+  hitClip: {fileID: 8300000, guid: cc7e447e1a78ff342abd403f87f9eac9, type: 3}
   attackEvent:
     m_PersistentCalls:
       m_Calls:

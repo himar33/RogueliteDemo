@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
             anim.speed = 1.0f;
         }
 
-        rb.velocity = currSpeed * inputMovement;
+        rb.velocity = currSpeed * inputMovement * multSpeed;
         anim.SetFloat("velocity", inputMovement.magnitude);
     }
 
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, shotPoint.position, shotPoint.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
         bullet.GetComponent<BulletController>().SetMultAttack(multAttack);
 
-        yield return new WaitForSeconds(baseFireRate);
+        yield return new WaitForSeconds(baseFireRate / multFireRate);
         canShoot = true;
     }
 
