@@ -4389,7 +4389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2145314250, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
       propertyPath: m_Parameters.m_EndRange
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1049594635403475301, guid: 8547cb82f7522514b88545e3f007258d, type: 3}
       propertyPath: m_Name

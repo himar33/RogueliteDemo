@@ -12,6 +12,7 @@ public class Enemy1 : Enemy
     [SerializeField] private AnimationClip hurtClip;
     [SerializeField] private AnimationClip deathClip;
     [SerializeField] private AnimationClip attackClip;
+    [SerializeField] private GameObject expParticles;
 
     private BoxCollider2D attackCollider;
     private AudioSource audioSource;
@@ -108,6 +109,7 @@ public class Enemy1 : Enemy
 
         yield return new WaitForSeconds(deathClip.length);
 
+        //Instantiate();
         Destroy(gameObject);
     }
 

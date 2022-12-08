@@ -17,7 +17,7 @@ public class ExpParticleDestroy : MonoBehaviour
         // get the particles which matched the trigger conditions this frame
         int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, enter);
 
-        if (numEnter >= 3)
+        if (numEnter >= 1)
         {
             Destroy(gameObject);
         }
