@@ -109,7 +109,7 @@ public class Enemy1 : Enemy
 
         yield return new WaitForSeconds(deathClip.length);
 
-        //Instantiate();
+        Instantiate(expParticles, transform.position, transform.rotation, GameObject.FindGameObjectWithTag("Destroyable").transform);
         Destroy(gameObject);
     }
 

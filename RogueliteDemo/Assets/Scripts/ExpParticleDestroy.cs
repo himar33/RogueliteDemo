@@ -10,6 +10,7 @@ public class ExpParticleDestroy : MonoBehaviour
     void OnEnable()
     {
         ps = GetComponent<ParticleSystem>();
+        ps.trigger.AddCollider(FindObjectOfType<PlayerController>());
     }
 
     void OnParticleTrigger()
