@@ -9,7 +9,8 @@ public class Enemy : MonoBehaviour
         Attack,
         Death,
         Hurt,
-        Walk
+        Walk,
+        Pause,
     }
 
     [Header("Stats")]
@@ -78,6 +79,12 @@ public class Enemy : MonoBehaviour
     protected void SetState(EnemyState _state)
     {
         currentState = _state;
+    }
+
+    public void Stop()
+    {
+        agent.isStopped = true;
+        animator.enabled = false;
     }
 
     protected virtual void OnDisable()

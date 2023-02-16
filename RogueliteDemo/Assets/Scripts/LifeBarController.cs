@@ -32,21 +32,23 @@ public class LifeBarController : MonoBehaviour
 
     public void TakeOff()
     {
-        if (currentLife > 0)
+        if (currentLife < 0) return;
+
+        currentLife--;
+        
+        if (currentLife <= 0)
         {
-            currentLife--;
-            for (int i = 0; i < hearts.Count; i++)
+            GameManager.Instance.GameOver();
+            return;
+        }
+
+        for (int i = 0; i < hearts.Count; i++)
+        {
+            if (hearts[i].currentState == HeartController.HeartState.FULL
+                && (i == hearts.Count - 1 || hearts[i + 1].currentState == HeartController.HeartState.EMPTY))
             {
-                if (i == hearts.Count - 1 && hearts[i].currentState == HeartController.HeartState.FULL)
-                {
-                    hearts[i].TakeOffLife();
-                    break;
-                }
-                else if (hearts[i + 1].currentState == HeartController.HeartState.EMPTY && hearts[i].currentState == HeartController.HeartState.FULL)
-                {
-                    hearts[i].TakeOffLife();
-                    break;
-                }
+                hearts[i].TakeOffLife();
+                break;
             }
         }
     }

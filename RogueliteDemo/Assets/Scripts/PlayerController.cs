@@ -106,6 +106,11 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("runningBack", false);
         }
 
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            GameManager.Instance.PauseGame();
+        }
+
         if (Input.GetKey(KeyCode.Mouse0))
         {
             currSpeed = shootWalkSpeed;
