@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +12,25 @@ public enum Scene
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public bool isPaused = false;
+    private bool _isPaused;
+    public bool IsPaused
+    {
+        get { return _isPaused; }
+        set
+        {
+            _isPaused = value;
+            Debug.Log("Game state is changed!");
+            switch (value)
+            {
+                case true:
+                    PauseGame();
+                    break;
+                case false:
+                    ResumeGame();
+                    break;
+            }
+        }
+    }
     //public AudioManager AudioManager { get; private set; }
     //public UIManager UIManager { get; private set; }
     //public TransitionManager transManager { get; private set; }
@@ -39,6 +58,13 @@ public class GameManager : MonoBehaviour
     {
         //TODO: Transition system
         ChangeSceneTo(Scene.TESTSCENE);
+    }
+    public void ResumeGame()
+    {
+        foreach (var item in FindObjectsOfType<Enemy>())
+        {
+            item.Resume();
+        }
     }
     public void PauseGame()
     {

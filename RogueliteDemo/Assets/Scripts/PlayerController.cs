@@ -106,9 +106,9 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("runningBack", false);
         }
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.Instance.PauseGame();
+            GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
         }
 
         if (Input.GetKey(KeyCode.Mouse0))

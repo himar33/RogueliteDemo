@@ -57,6 +57,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (GameManager.Instance.IsPaused) return;
+
         switch (currentState)
         {
             case EnemyState.Attack:
@@ -79,6 +81,12 @@ public class Enemy : MonoBehaviour
     protected void SetState(EnemyState _state)
     {
         currentState = _state;
+    }
+
+    public void Resume()
+    {
+        animator.enabled = true;
+        agent.isStopped = false;
     }
 
     public void Stop()
