@@ -48,6 +48,13 @@ public class GameManager : MonoBehaviour
         //UIManager = GetComponentInChildren<UIManager>();
         //transManager = GetComponentInChildren<TransitionManager>();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Instance.IsPaused = !Instance.IsPaused;
+        }
+    }
     public static void ChangeSceneTo(Scene sceneIndex)
     {
         //TODO: Transition system
@@ -65,6 +72,8 @@ public class GameManager : MonoBehaviour
         {
             item.Resume();
         }
+
+        FindObjectOfType<PlayerController>().Resume();
     }
     public void PauseGame()
     {
@@ -72,5 +81,7 @@ public class GameManager : MonoBehaviour
         {
             item.Stop();
         }
+
+        FindObjectOfType<PlayerController>().Stop();
     }
 }

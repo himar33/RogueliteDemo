@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.IsPaused) return;
+
         switch (currentState)
         {
             case PlayerState.NORMAL:
@@ -104,11 +106,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("runningBack", false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameManager.Instance.IsPaused = !GameManager.Instance.IsPaused;
         }
 
         if (Input.GetKey(KeyCode.Mouse0))
@@ -168,5 +165,15 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerState.HITTED;
             Debug.Log("hitted");
         }
+    }
+
+    public void Resume()
+    {
+        anim.enabled = true;
+    }
+
+    public void Stop()
+    {
+        anim.enabled = false;
     }
 }
