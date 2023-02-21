@@ -53,6 +53,8 @@ public class Enemy : MonoBehaviour
         currentLife = life;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        GameManager.Instance.enemies.Add(this);
     }
 
     protected virtual void Update()

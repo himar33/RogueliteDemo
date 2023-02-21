@@ -58,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
         handSR = handTransform.GetComponent<SpriteRenderer>();
         gunSR = gunTransform.GetComponent<SpriteRenderer>();
+
+        GameManager.Instance.player = this;
     }
 
     private void Update()

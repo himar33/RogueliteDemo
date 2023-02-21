@@ -5,30 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Boost_PowerUp", menuName = "Power Ups/Boost", order = 1)]
 public class BoostPowerUp : PowerUp
 {
-    public enum BoostType
-    {
-        ATTACK,
-        ATTACKSPEED,
-        SPEED
-    }
-    public BoostType boostType;
     [Range(0, 1)] public float boostPercentage;
-    private void OnEnable()
-    {
-        p_type = PowerUpType.BOOST;
-    }
 
     public override void OnAdded(PlayerController player)
     {
-        switch (boostType)
+        switch (p_type)
         {
-            case BoostType.ATTACK:
+            case PowerUpType.B_ATTACK:
                 player.multAttack += boostPercentage;
                 break;
-            case BoostType.ATTACKSPEED:
+            case PowerUpType.B_ATTACKSPEED:
                 player.multFireRate += boostPercentage;
                 break;
-            case BoostType.SPEED:
+            case PowerUpType.B_SPEED:
                 player.multSpeed += boostPercentage;
                 break;
             default:

@@ -5,11 +5,13 @@ public abstract class PowerUp : ScriptableObject
 {
     public enum PowerUpType
     {
-        BOOST,
+        B_ATTACK,
+        B_ATTACKSPEED,
+        B_SPEED,
         ELEMENTAL,
         CIRCLE
     }
-    [ReadOnly] public PowerUpType p_type;
+    public PowerUpType p_type;
     public string p_name;
     [TextArea] public string p_description;
     public Sprite p_icon;

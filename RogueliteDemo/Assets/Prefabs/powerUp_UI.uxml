@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement name="Container" style="align-items: center; justify-content: space-around; flex-basis: 50%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; position: relative; width: auto; flex-grow: 0; bottom: auto; right: auto; top: 25%; flex-shrink: 1; flex-direction: row;">
+            <ui:Label text="Habilidad numero 1" display-tooltip-when-elided="true" style="font-size: 32px; align-items: center; justify-content: center; -unity-text-align: upper-center; width: 327px;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" style="font-size: 24px; justify-content: flex-start; align-items: center; margin-top: 80px;" />
+            </ui:Label>
+            <ui:Label text="Habilidad numero 2" display-tooltip-when-elided="true" style="font-size: 32px; align-items: center; justify-content: center; -unity-text-align: upper-center; width: 327px;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" style="font-size: 24px; justify-content: flex-start; align-items: center; margin-top: 80px;" />
+            </ui:Label>
+            <ui:Label text="Habilidad numero 3" display-tooltip-when-elided="true" style="font-size: 32px; align-items: center; justify-content: center; -unity-text-align: upper-center; width: 327px;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" style="font-size: 24px; justify-content: flex-start; align-items: center; margin-top: 80px;" />
+            </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -542,7 +542,6 @@ GameObject:
   - component: {fileID: 7893455258608350952}
   - component: {fileID: 1689838300087764444}
   - component: {fileID: 6566003876754387688}
-  - component: {fileID: 4646740251543935922}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -804,19 +803,6 @@ MonoBehaviour:
   multAttack: 1
   multFireRate: 1
   multSpeed: 1
---- !u!114 &4646740251543935922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1049594635403475301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d81ed0828210ba4691b18c64cb19316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerUps: []
 --- !u!1 &1956399864249306800
 GameObject:
   m_ObjectHideFlags: 0

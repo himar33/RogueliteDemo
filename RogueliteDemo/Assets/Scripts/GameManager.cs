@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private bool _isPaused;
+
+    public List<Enemy> enemies;
+    public PlayerController player;
+
     public bool IsPaused
     {
         get { return _isPaused; }
@@ -32,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
     }
     //public AudioManager AudioManager { get; private set; }
-    //public UIManager UIManager { get; private set; }
+    public UIManager UIManager { get; private set; }
     //public TransitionManager transManager { get; private set; }
     private void Awake()
     {
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         //AudioManager = GetComponentInChildren<AudioManager>();
-        //UIManager = GetComponentInChildren<UIManager>();
+        UIManager = GetComponentInChildren<UIManager>();
         //transManager = GetComponentInChildren<TransitionManager>();
     }
     private void Update()
@@ -68,20 +72,24 @@ public class GameManager : MonoBehaviour
     }
     public void ResumeGame()
     {
-        foreach (var item in FindObjectsOfType<Enemy>())
+        UIManager.QuiteUI();
+
+        //Resume entities
+        foreach (var item in enemies)
         {
             item.Resume();
         }
-
-        FindObjectOfType<PlayerController>().Resume();
+        player.Resume();
     }
     public void PauseGame()
     {
-        foreach (var item in FindObjectsOfType<Enemy>())
+        UIManager.SetUI(UIManager.UIStates.POWERUPS);
+
+        //Stop entities
+        foreach (var item in enemies)
         {
             item.Stop();
         }
-
-        FindObjectOfType<PlayerController>().Stop();
+        player.Stop();
     }
 }

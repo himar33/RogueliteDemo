@@ -20,18 +20,16 @@ public class PowerUpManager : MonoBehaviour
     private void Update()
     {
         //PARA DEBUGGEAR SOLO
-        if (Input.GetKeyDown(KeyCode.Alpha1)) AddPowerUp(allPowerUps[0]);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) AddPowerUp(allPowerUps[1]);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) AddPowerUp(allPowerUps[2]);
+        if (Input.GetKeyDown(KeyCode.Alpha1)) AddPowerUp(PowerUp.PowerUpType.B_ATTACK);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) AddPowerUp(PowerUp.PowerUpType.B_ATTACKSPEED);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) AddPowerUp(PowerUp.PowerUpType.B_SPEED);
     }
 
-    public void AddPowerUp(PowerUp powerUp)
+    public void AddPowerUp(PowerUp.PowerUpType pType)
     {
-        if (powerUp)
-        {
-            powerUp.OnAdded(player);
-            powerUps.Add(powerUp);
-            Debug.Log("Added a " + powerUp.p_name + " power up!");
-        }
+        PowerUp powerUp = allPowerUps.Find(x => x.p_type == pType);
+        powerUp.OnAdded(player);
+        powerUps.Add(powerUp);
+        Debug.Log("Added a " + powerUp.p_name + " power up!");
     }
 }

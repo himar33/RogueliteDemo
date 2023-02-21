@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098398befe62592479d68f065d6903ea, type: 3}
   m_Name: AttackSpeedBoost
   m_EditorClassIdentifier: 
-  p_type: 0
+  p_type: 1
   p_name: Attack Speed Boost
   p_description: lorem ipsum
   p_icon: {fileID: 0}
-  boostType: 1
   boostPercentage: 0.25
